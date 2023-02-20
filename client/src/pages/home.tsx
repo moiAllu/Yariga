@@ -31,7 +31,7 @@ const home = () => {
           title="Property for customers"
           value={5645}
           series={[75, 25]}
-          colors={["#475ba8", "#e4e8cf"]}
+          colors={["#475be8", "#e4e8ef"]}
         />{" "}
         <PieChart
           title="Property for cities"
@@ -44,7 +44,7 @@ const home = () => {
         mt="25px"
         width="100%"
         direction={{ xs: "column", lg: "row" }}
-        gap={4}
+        gap={3}
       >
         <TotalRevenue />
         <PropertyReferrals />

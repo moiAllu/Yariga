@@ -5,6 +5,7 @@ const getPropertyDetail = async (req, res) => {};
 const createProperty = async (req, res) => {};
 const editProperty = async (req, res) => {};
 const deleteProperty = async (req, res) => {};
+const updateProperty = async (req, res) => {};
 
 export {
   getAllProperties,
@@ -12,4 +13,5 @@ export {
   createProperty,
   editProperty,
   deleteProperty,
+  updateProperty,
 };
