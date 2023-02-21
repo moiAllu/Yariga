@@ -9,24 +9,26 @@ import {
   Select,
   MenuItem,
   Button,
-  color,
 } from "@pankod/refine-mui";
+
 import { FormProps } from "interfaces/common";
 import CustomButton from "./CustomButton";
+
 const Form = ({
   type,
   register,
   handleSubmit,
   handleImageChange,
-  onFinishHandler,
   formLoading,
+  onFinishHandler,
   propertyImage,
 }: FormProps) => {
   return (
     <Box>
       <Typography fontSize={25} fontWeight={700} color="#11142d">
-        {type} a property
+        {type} a Property
       </Typography>
+
       <Box mt={2.5} borderRadius="15px" padding="20px" bgcolor="#fcfcfc">
         <form
           style={{
@@ -34,7 +36,7 @@ const Form = ({
             width: "100%",
             display: "flex",
             flexDirection: "column",
-            gap: "25px",
+            gap: "20px",
           }}
           onSubmit={handleSubmit(onFinishHandler)}
         >
@@ -67,7 +69,7 @@ const Form = ({
                 color: "#11142d",
               }}
             >
-              Property Description
+              Enter Description
             </FormHelperText>
             <TextareaAutosize
               minRows={5}
@@ -86,6 +88,7 @@ const Form = ({
               {...register("description", { required: true })}
             />
           </FormControl>
+
           <Stack direction="row" gap={4}>
             <FormControl sx={{ flex: 1 }}>
               <FormHelperText
@@ -96,22 +99,26 @@ const Form = ({
                   color: "#11142d",
                 }}
               >
-                Select Property
+                Select Property Type
               </FormHelperText>
               <Select
                 variant="outlined"
                 color="info"
-                required
                 displayEmpty
-                inputProps={{ "aria-label": "without label" }}
-                defaultValue="aparment"
+                required
+                inputProps={{ "aria-label": "Without label" }}
+                defaultValue="apartment"
+                {...register("propertyType", {
+                  required: true,
+                })}
               >
-                <MenuItem value="appartment">Appartment</MenuItem>
-                <MenuItem value="farmhouse">Farmhouse</MenuItem>
+                <MenuItem value="apartment">Apartment</MenuItem>
                 <MenuItem value="villa">Villa</MenuItem>
+                <MenuItem value="farmhouse">farmhouse</MenuItem>
+                <MenuItem value="condos">Condos</MenuItem>
+                <MenuItem value="townhouse">Townhouse</MenuItem>
                 <MenuItem value="duplex">Duplex</MenuItem>
                 <MenuItem value="studio">Studio</MenuItem>
-                <MenuItem value="condos">Condos</MenuItem>
                 <MenuItem value="chalet">Chalet</MenuItem>
               </Select>
             </FormControl>
@@ -137,6 +144,7 @@ const Form = ({
               />
             </FormControl>
           </Stack>
+
           <FormControl>
             <FormHelperText
               sx={{
@@ -146,7 +154,7 @@ const Form = ({
                 color: "#11142d",
               }}
             >
-              Enter location
+              Enter Location
             </FormHelperText>
             <TextField
               fullWidth
@@ -157,7 +165,8 @@ const Form = ({
               {...register("location", { required: true })}
             />
           </FormControl>
-          <Stack direction="column" justifyContent="center" mb={2} gap={1}>
+
+          <Stack direction="column" gap={1} justifyContent="center" mb={2}>
             <Stack direction="row" gap={2}>
               <Typography
                 color="#11142d"
@@ -167,6 +176,7 @@ const Form = ({
               >
                 Property Photo
               </Typography>
+
               <Button
                 component="label"
                 sx={{
@@ -181,9 +191,8 @@ const Form = ({
                   hidden
                   accept="image/*"
                   type="file"
-                  onChange={(e) => {
-                    // @ts-ignore
-                    handleImageChange(e.target.files[0]);
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    handleImageChange(e.target.files![0]);
                   }}
                 />
               </Button>
@@ -191,13 +200,12 @@ const Form = ({
             <Typography
               fontSize={14}
               color="#808191"
-              sx={{
-                wordBreak: "break-all",
-              }}
+              sx={{ wordBreak: "break-all" }}
             >
               {propertyImage?.name}
             </Typography>
           </Stack>
+
           <CustomButton
             type="submit"
             title={formLoading ? "Submitting..." : "Submit"}
