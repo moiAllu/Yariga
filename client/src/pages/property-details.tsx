@@ -40,7 +40,9 @@ const PropertyDetails = () => {
   const isCurrentUser = user.email === propertyDetails.creator.email;
 
   const handleDeleteProperty = () => {
-    const response = confirm("Are you sure you want to delete this property?");
+    const response = window.confirm(
+      "Are you sure you want to delete this property?"
+    );
     if (response) {
       mutate(
         {
