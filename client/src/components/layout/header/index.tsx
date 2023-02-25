@@ -14,7 +14,9 @@ import { ColorModeContext } from "contexts";
 
 export const Header: React.FC = () => {
   const { mode, setMode } = useContext(ColorModeContext);
-
+  {
+    mode === "dark" && setMode();
+  } // this is to set the mode to dark or light (if the user has already selected a mode
   const { data: user } = useGetIdentity();
   const shouldRenderHeader = true; // since we are using the dark/light toggle; we don't need to check if user is logged in or not.
 
