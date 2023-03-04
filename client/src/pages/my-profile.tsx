@@ -8,9 +8,7 @@ const MyProfile = () => {
     resource: "users",
     id: user?.userid,
   });
-
   const myProfile = data?.data ?? [];
-  console.log(myProfile);
   if (isLoading) return <div>loading...</div>;
   if (isError) return <div>error...</div>;
 

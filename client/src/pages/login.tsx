@@ -14,9 +14,21 @@ import { CredentialResponse } from "../interfaces/google";
 import { Input, Button, FormControl } from "@pankod/refine-mui";
 
 export const Login: React.FC = () => {
-  const { mutate: login } = useLogin<CredentialResponse>();
+  const { mutate: login } = useLogin();
+
+  const guestLogin = (e: any) => {
+    e.preventDefault();
+    const credentials = {
+      email: "user@test.com",
+      password: "password",
+      name: "aliabbasi",
+      mode: "login",
+    };
+    login({ credentials });
+  };
 
   const GoogleButton = (): JSX.Element => {
+    const { mutate: login } = useLogin<CredentialResponse>();
     const divRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -46,12 +58,14 @@ export const Login: React.FC = () => {
 
     return <div ref={divRef} />;
   };
+
   const SingInForm = ({}) => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [name, setName] = React.useState("");
     const [loginToggle, setLoginToggle] = React.useState(false);
     const { mutate: login } = useLogin();
+
     const FormSubmitHandler = async (e: any) => {
       e.preventDefault();
       const mode = loginToggle ? "signup" : "login";
@@ -173,7 +187,6 @@ export const Login: React.FC = () => {
       </Box>
     );
   };
-
   return (
     <Box component="div" sx={{ backgroundColor: "#fcfcfc" }}>
       <Container
@@ -199,6 +212,28 @@ export const Login: React.FC = () => {
           </div>
           <Box mt={4}>
             <GoogleButton />
+            <Box width="100%">
+              <Button
+                onClick={guestLogin}
+                sx={{
+                  width: {
+                    xs: "90%",
+                    xl: "100%",
+                  },
+                  color: "#ffffff",
+                  bgcolor: "#496bf5",
+                  textTransform: "none",
+                  padding: "5px",
+                  mt: "10px",
+                  fontSize: "12px",
+                  "&:hover": {
+                    background: "#7997fc",
+                  },
+                }}
+              >
+                Login as a Guest
+              </Button>
+            </Box>
           </Box>
           <Box mt={2} width="100%">
             <SingInForm />

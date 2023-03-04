@@ -57,7 +57,7 @@ function App() {
       if (credentials) {
         //sing in with email and password
         const response = await fetch(
-          `http://localhost:8080/api/v1/users/${credentials.mode}`,
+          `https://yariga-oeku.onrender.com/api/v1/users/${credentials.mode}`,
           {
             method: "POST",
             headers: {
@@ -170,7 +170,7 @@ function App() {
               icon: <VillaOutlined />,
             },
             {
-              name: "agents",
+              name: "agent",
               list: Agents,
               show: AgentProfile,
               icon: <PeopleAltOutlined />,
