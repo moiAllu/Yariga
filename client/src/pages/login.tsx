@@ -1,17 +1,10 @@
 import { useEffect, useRef } from "react";
 import { useLogin } from "@pankod/refine-core";
 import React from "react";
-import {
-  Container,
-  Box,
-  flexbox,
-  bgcolor,
-  Typography,
-  display,
-} from "@pankod/refine-mui";
+import { Container, Box, Typography } from "@pankod/refine-mui";
 import { yariga } from "assets";
 import { CredentialResponse } from "../interfaces/google";
-import { Input, Button, FormControl } from "@pankod/refine-mui";
+import { Button } from "@pankod/refine-mui";
 
 export const Login: React.FC = () => {
   const { mutate: login } = useLogin();
