@@ -1,4 +1,7 @@
 import User from "../mongodb/models/user.js";
+import bcrypt from "bcrypt";
+
+const salt = bcrypt.genSaltSync();
 
 const getAllUsers = async (req, res) => {
   try {
@@ -17,6 +20,7 @@ const createUser = async (req, res) => {
       name,
       email,
       avatar,
+      password: name,
     });
     res.status(200).json(newUser);
   } catch (error) {
@@ -38,5 +42,37 @@ const getUserInfoById = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-export { getAllUsers, createUser, getUserInfoById };
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (user) {
+      if (bcrypt.compareSync(password, user.password)) {
+        res.status(200).json(user);
+      } else {
+        res.status(400).json({ message: "Wrong password" });
+      }
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+const signupUser = async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    const userExists = await User.findOne({ email });
+    if (userExists)
+      return res.status(401).json({ message: "User already exists" });
+    const newUser = await User.create({
+      name,
+      email,
+      password: bcrypt.hashSync(password, salt),
+    });
+    res.status(200).json(newUser);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+export { getAllUsers, createUser, getUserInfoById, loginUser, signupUser };

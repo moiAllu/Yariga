@@ -52,9 +52,38 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
 
 function App() {
   const authProvider: AuthProvider = {
-    login: async ({ credential }: CredentialResponse) => {
+    login: async ({ credential, credentials }: CredentialResponse | any) => {
       const profileObj = credential ? parseJwt(credential) : null;
-
+      if (credentials) {
+        //sing in with email and password
+        const response = await fetch(
+          `https://yariga-oeku.onrender.com/api/v1/users/${credentials.mode}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: credentials.name,
+              email: credentials.email,
+              password: credentials.password,
+            }),
+          }
+        );
+        const data = await response.json();
+        delete data.password;
+        if (response.status === 200) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              ...data,
+              userid: data._id,
+            })
+          );
+        } else {
+          return Promise.reject();
+        }
+      }
       if (profileObj) {
         const response = await fetch(
           "https://yariga-oeku.onrender.com/api/v1/users",
@@ -84,9 +113,8 @@ function App() {
           return Promise.reject();
         }
       }
-
-      localStorage.setItem("token", `${credential}`);
-
+      if (credential) localStorage.setItem("token", `${credential}`);
+      if (credentials) localStorage.setItem("token", `${credentials}`);
       return Promise.resolve();
     },
     logout: () => {
@@ -142,7 +170,7 @@ function App() {
               icon: <VillaOutlined />,
             },
             {
-              name: "agents",
+              name: "agent",
               list: Agents,
               show: AgentProfile,
               icon: <PeopleAltOutlined />,
