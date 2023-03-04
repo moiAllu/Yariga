@@ -210,7 +210,7 @@ export const Login: React.FC = () => {
                 onClick={guestLogin}
                 sx={{
                   width: {
-                    xs: "90%",
+                    xs: "100%",
                     xl: "100%",
                   },
                   color: "#ffffff",
