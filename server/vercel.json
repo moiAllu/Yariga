@@ -6,9 +6,10 @@
         "use": "@now/node"
       }
     ],
-    "rewrites": [
-        { "source": "/api/v1/users/(.*)", "destination": "/api/v1/users/$1" },
-        { "source": "/api/v1/properties/(.*)", "destination": "/api/v1/properties/$1" },
-        { "source": "/(.*)", "destination": "/$1" }
-      ]
+    "routes": [
+      { "src": "/api/v1/users/(.*)", "dest": "/api/v1/users/$1" },
+      { "src": "/api/v1/properties/(.*)", "dest": "/api/v1/properties/$1" },
+      { "src": "/api/v1/posts/(.*)", "dest": "/api/v1/posts/$1" },
+      { "src": "/(.*)", "dest": "/$1" }
+    ]
   }
