@@ -54,7 +54,7 @@ function App() {
       if (credentials) {
         //sing in with email and password
         const response = await fetch(
-          `https://good-puce-squid-hose.cyclic.app/api/v1/users/${credentials.mode}`,
+          `http://localhost:8080/api/v1/users/${credentials.mode}`,
           {
             method: "POST",
             headers: {
@@ -82,20 +82,17 @@ function App() {
         }
       }
       if (profileObj) {
-        const response = await fetch(
-          "https://good-puce-squid-hose.cyclic.app/v1/users",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              name: profileObj.name,
-              email: profileObj.email,
-              avatar: profileObj.picture,
-            }),
-          }
-        );
+        const response = await fetch("http://localhost:8080/v1/users", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: profileObj.name,
+            email: profileObj.email,
+            avatar: profileObj.picture,
+          }),
+        });
         const data = await response.json();
         if (response.status === 200) {
           localStorage.setItem(
@@ -153,9 +150,7 @@ function App() {
       <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
       <RefineSnackbarProvider>
         <Refine
-          dataProvider={dataProvider(
-            "https://good-puce-squid-hose.cyclic.app/api/v1"
-          )}
+          dataProvider={dataProvider("http://localhost:8080/api/v1")}
           notificationProvider={notificationProvider}
           ReadyPage={ReadyPage}
           catchAll={<ErrorComponent />}
